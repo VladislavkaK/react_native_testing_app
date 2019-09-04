@@ -18,8 +18,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.listen(3006, () => {
-  console.log('App listening on port 3006!');
+app.listen(3007, () => {
+  console.log('App listening on port 3007!');
 });
 
 app.get('/api/v1/tests', (req, res) => {
@@ -60,7 +60,7 @@ app.get('/api/v1/tests', (req, res) => {
   })
 });
 
-app.get('/api/v1/test/:id', (req, res) => {
+app.get('/api/v1/test/question/:id', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept')
 

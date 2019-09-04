@@ -1,4 +1,4 @@
-import { MainScreen } from '../../containers';
+import { MainScreen, DashboardScreen, QuestionScreen } from '../../containers';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
@@ -9,6 +9,12 @@ const AppNavigator = createStackNavigator(
       navigationOptions: {
         header: null,
       },
+    },
+    Dashboard: {
+      screen: DashboardScreen,
+    },
+    QuestionsList: {
+      screen: QuestionScreen,
     },
   },
 );

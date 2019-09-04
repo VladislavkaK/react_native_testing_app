@@ -1,19 +1,47 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, StatusBar } from 'react-native';
 
-const MainPage = (): any => {
-  const onPressDetails = () => {
-    console.log();
-  };
+interface IMainProps {
+  navigation: any;
+}
 
-  return (
-    <View style={styles.viewStyles}>
-      <Text style={styles.textStyles}>
-        Meduza Фейк
-      </Text>
-    </View>
-  );
-};
+interface IMainState {
+
+}
+
+class MainPage extends React.Component<IMainProps, IMainState> {
+  constructor (props: Readonly<IMainProps>) {
+    super(props);
+  }
+
+  performTime = async () => {
+    return new Promise((resolve): any =>
+      setTimeout(
+        () => { resolve('result'); },
+        2000,
+      ),
+    );
+  }
+
+  async componentDidMount () {
+    const data = await this.performTime();
+
+    if (data !== null) {
+      this.props.navigation.navigate('Dashboard');
+    }
+  }
+
+  render () {
+    return (
+      <View style={styles.viewStyles}>
+        <StatusBar hidden={true} backgroundColor='purple' />
+        <Text style={styles.textStyles}>
+          Meduza Фейк
+        </Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   viewStyles: {

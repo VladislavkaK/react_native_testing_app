@@ -15,12 +15,12 @@
             "check-format",
             "allow-pascal-case"
         ],
-        "quotemark": [
-            true,
-            "single",
-            "avoid-escape",
-            "avoid-template"
-        ]
+        // "quotemark": [
+        //     true,
+        //     "single",
+        //     "avoid-escape",
+        //     "avoid-template"
+        // ]
     },
     "rulesDirectory": []
 }
