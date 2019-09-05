@@ -1,10 +1,5 @@
-let API_MAP = null;
-let IP = "";
-const isLocal = window.location.host === "localhost:8081";
-
-if (isLocal) {
-    IP = "https://server-dragon.firebaseapp.com";
-}
+let API_MAP: any = null;
+let IP = "https://server-dragon.firebaseapp.com";
 
 API_MAP = {
     GET_DATA_TESTS: `${IP}/api/v1/tests`,

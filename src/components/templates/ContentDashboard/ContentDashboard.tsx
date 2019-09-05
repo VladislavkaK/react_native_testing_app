@@ -5,6 +5,10 @@ import { ElementDashboard } from '../../atoms';
 interface IContentDashboardProps {
     data: any;
     navigation: any;
+    totalQuestions: any;
+    successAnswers: any;
+    test_set_id: any;
+    currentAnswers: any;
 }
 
 class ContentDashboard extends React.Component<IContentDashboardProps, any> {
@@ -13,7 +17,7 @@ class ContentDashboard extends React.Component<IContentDashboardProps, any> {
     }
 
     render () {
-        const { data, navigation } = this.props;
+        const { data, navigation, totalQuestions, successAnswers, test_set_id, currentAnswers } = this.props;
 
         return (
             <ScrollView>
@@ -21,9 +25,13 @@ class ContentDashboard extends React.Component<IContentDashboardProps, any> {
                     <StatusBar hidden={false} backgroundColor='blueviolet' />
                     <ElementDashboard 
                         data={data} 
+                        currentAnswers={currentAnswers}
                         styleBlock={styles.blockDashboard} 
+                        successAnswers={successAnswers.length}
+                        test_set_id={test_set_id}
                         styleElement={styles.elementDashboard}
-                        navigation={navigation} />
+                        navigation={navigation}
+                        totalQuestions={totalQuestions} />
                 </View>
             </ScrollView>
         )

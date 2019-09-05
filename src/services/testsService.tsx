@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_MAP } from '../utils/api';
 
-export const getTestsAPI = () => {
+export const getTestsAPI = (request: any) => {
     const GET_TEST = API_MAP.GET_DATA_TESTS;
 
     const headers = {

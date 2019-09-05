@@ -6,7 +6,7 @@ function GET_TESTS_RECEIVED (state: any, { response: { body: { total_questions, 
     let isSuccess: boolean = false;
 
     if (success) {
-        isSuccess = success
+        isSuccess = success;  
     }
 
     return {

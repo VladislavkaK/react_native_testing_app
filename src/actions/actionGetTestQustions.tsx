@@ -6,3 +6,10 @@ export const getDataTestQuestions = (id: any) => {
         id
     }
 }
+
+export const answersData = (data: any) => {
+    return {
+        type: "ANSWERS_DATA_SUCCESS",
+        data
+    }
+}
