@@ -9,6 +9,7 @@ interface IQuestionScreenProps {
     getDataTest: any;
     testing: any;
     dataAnswers: any;
+    totalSuccessAnswers: any;
     isSuccess: boolean | undefined;
     isLoading: boolean | undefined;
 }
@@ -36,9 +37,9 @@ class QuestionScreen extends React.Component<IQuestionScreenProps, any> {
     }
 
     render () {
-        const { isLoading, isSuccess, testing, dataAnswers, navigation } = this.props;
+        const { isLoading, isSuccess, testing, dataAnswers, navigation, totalSuccessAnswers } = this.props;
         const { state: { params: { id } } } = this.props.navigation;
-        let successAnswers = [];
+        // let successAnswers = [];
         let loadData;
 
         if (isLoading) {
@@ -47,14 +48,14 @@ class QuestionScreen extends React.Component<IQuestionScreenProps, any> {
                     <ActivityIndicator size="large" color="#0000ff" />
                 </View>
         } else if (!isLoading && isSuccess !== undefined) {
-            successAnswers = dataAnswers.filter((data: any, index: any) => {
-                return data.answer_success;
-            })
+            // successAnswers = dataAnswers.filter((data: any, index: any) => {
+            //     return data.answer_success;
+            // })
  
             loadData = 
                 <View>
                     <StatusBar hidden={false} backgroundColor='blueviolet' />
-                    <ContentTestQuestions testing={testing} successAnswers={successAnswers} navigation={navigation} set_id={id} />
+                    <ContentTestQuestions testing={testing} successAnswers={totalSuccessAnswers} navigation={navigation} set_id={id} />
                 </View>
         }
 
@@ -69,7 +70,8 @@ class QuestionScreen extends React.Component<IQuestionScreenProps, any> {
 const mapStateToProps = (state: any) => {
 
     return {
-        dataAnswers: state.testQuestions.data,
+        // dataAnswers: state.testQuestions.data,
+        totalSuccessAnswers: state.testQuestions.totalSuccessAnswers,
         isSuccess: state.testQuestions.isSuccess,
         isLoading: state.testQuestions.isLoading,
         testing: state.testQuestions.testing,

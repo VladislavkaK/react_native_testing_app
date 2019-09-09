@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
 import { QuestionButton } from '../../atoms';
+import { answersData } from '../../../actions/actionGetTestQustions';
+import { connect } from 'react-redux';
 
 interface IContentTestQuestionsProps {
     testing: any;
@@ -11,6 +13,7 @@ interface IContentTestQuestionsProps {
     handleSubmit: any;
     set_id: any;
     reset: any;
+    answersData: any;
 }
 
 interface IContentTestQuestionsState {
@@ -38,6 +41,7 @@ class ContentTestQuestions extends React.Component<IContentTestQuestionsProps, I
 
     submitData (values: any, successAnswers: any, navigation: any, size: number, set_id: any) {
         this.props.reset();
+        this.props.answersData(values)
         navigation.navigate('TotalAnswers', { successAnswers: successAnswers, totalAnswers: size, set_id: set_id })
     }
 
@@ -48,7 +52,7 @@ class ContentTestQuestions extends React.Component<IContentTestQuestionsProps, I
 
         let blockQuestions = testing.map((data: any, index: number) => {
             const { question_id, question_title, answers } = data;
- 
+
             return (
                 <React.Fragment key={index} >
                     
@@ -113,8 +117,14 @@ const styles = StyleSheet.create({
     }
 })
 
-export default reduxForm<any, any>({
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+     answersData: (data: any) => dispatch(answersData(data)) 
+    }
+}
+
+export default connect(null, mapDispatchToProps)(reduxForm<any, any>({
     form: 'formQuestions',
     destroyOnUnmount: false,
     forceUnregisterOnUnmount: true,
-})(ContentTestQuestions);
+})(ContentTestQuestions));

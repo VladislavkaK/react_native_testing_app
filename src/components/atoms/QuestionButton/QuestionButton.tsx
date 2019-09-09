@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { View, Alert, TouchableOpacity, ScrollView, Text, StyleSheet, Button } from 'react-native';
-import { answersData } from '../../../actions/actionGetTestQustions';
-import { connect } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
+import { View, Alert, TouchableOpacity, ScrollView, Text, StyleSheet, Button, TextInput } from 'react-native';
 
 const QuestionButton = (props: any) => {
     const { input, meta, options, trueAnswers, answersData } = props;
@@ -15,25 +12,26 @@ const QuestionButton = (props: any) => {
         const { answer_id, answer_success, answer_title } = questionsData;
 
         return (
-            <TouchableOpacity
+                <TouchableOpacity
                     {...props}
                     key={index}
+                    // name={`${input.name}[${index}]`}
                     onPress={(e) => {
                         setCheckedAnswer(!checkedAnswer);
                         setIndexAnswer(answer_id);
                         setSuccessAnswer(!successAnswer);
-                        answersData({
+
+                        return input.onChange({
                             answer_id: answer_id,
                             answer_title: answer_title,
                             answer_success: answer_success,
                         })
-                        return input.onChange(input.value)
                     }}
                 >
                     <View style={[styles.container, (checkedAnswer && answer_id === indexAnswer) ? { borderWidth: 2, borderColor: 'green' } : {  } ]} >
                         <Text style={{fontSize: 14, textAlign: 'center'}}>{answer_title}</Text>
                     </View>  
-            </TouchableOpacity>         
+                </TouchableOpacity>    
         )
     })
 
@@ -59,10 +57,6 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapDispatchToProps = (dispatch: any) => {
-   return {
-    answersData: (data: any) => dispatch(answersData(data)) 
-   }
-}
 
-export default connect(null, mapDispatchToProps)(QuestionButton);
+
+export default QuestionButton;

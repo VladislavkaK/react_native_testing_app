@@ -10,6 +10,7 @@ interface IElementDashboardProps {
     successAnswers: any;
     test_set_id: any;
     currentAnswers: any;
+    updateResultTest: any;
 }
 
 class ElementDashboard extends React.Component<IElementDashboardProps, any> {
@@ -18,33 +19,43 @@ class ElementDashboard extends React.Component<IElementDashboardProps, any> {
     }
 
     render () {
-        const { styleBlock, styleElement, data, navigation, totalQuestions, test_set_id, currentAnswers } = this.props;
-        let lengthAnswers: any = [];
-        let idAnswer: any = [];
-        let idAnswerNew: any = [];
-console.log("currentAnswers", currentAnswers)
-        // if (currentAnswers !== undefined) {
-        //     idAnswerNew = {
-        //         ...currentAnswers,
-        //         successAnswers: currentAnswers.map((data: any) => data.test_set_id ? {...data, currentAnswers: currentAnswers} : data)
-        //     }
-        //     console.log(idAnswerNew)
-        //     // for (let i = 0; i < currentAnswers.length; i++) {
+        const { styleBlock, styleElement, data, navigation, totalQuestions, test_set_id, currentAnswers, updateResultTest, successAnswers } = this.props;
 
-        //     //     if (currentAnswers[i] !== undefined) {
-        //     //         idAnswer.push({id: currentAnswers[i].test_set_id});
-        //     //         lengthAnswers.push(currentAnswers[i].successAnswers.length);
-        //     //     }
+        // let lengthAnswers: any = [];
+        // let idAnswer: any = [];
+
+        // if (currentAnswers !== undefined) {
+
+        //     for (let i = 0; i < currentAnswers.length; i++) {
+
+        //         if (currentAnswers[i] !== undefined) {
+        //             idAnswer.push( currentAnswers[i].test_set_id);
+        //             lengthAnswers.push(currentAnswers[i].successAnswers.length);
+        //         }
                 
-        //     // }
+        //     }
         // }
 
         return (
             <React.Fragment>
                 {data !== undefined && data.map((value: any, index: number) => {
-    
+                    // let len;
+                    // console.log(currentAnswers)
+                    // if (currentAnswers !== undefined) {
+                    //     // id = currentAnswers[index].answer_id;
+                    //     for (let i = 0; i < currentAnswers.length; i++) {
+                    //         if (index == currentAnswers[i].answer_id) { 
+                    //             len = currentAnswers.length
+                    //         }
+                    //     }
+                        
+                    // }
+
                     return (
-                        <TouchableOpacity onPress={() => navigation.navigate('QuestionsList', { id: value.test_id, total: totalQuestions })} key={index} >
+                        <TouchableOpacity onPress={() => {
+                            updateResultTest({id: value.test_id, answers: currentAnswers})
+                            navigation.navigate('QuestionsList', { id: value.test_id, total: totalQuestions })
+                        }} key={index} >
                             <View style={styleBlock}  >
                                 <View style={styleElement} >
                                     <Text>
@@ -53,7 +64,7 @@ console.log("currentAnswers", currentAnswers)
                                 </View>
                                 <View style={styleElement} >
                                     <Text>
-                                        {`Лучший результат: ${idAnswer[index] == value.test_id ? lengthAnswers[index] : 0}/${value.test_total_questions}`}
+                                        {`Лучший результат: ${currentAnswers !== undefined && currentAnswers[value.test_id] ? currentAnswers[value.test_id].length : 0}/${value.test_total_questions}`}
                                     </Text>
                                 </View>
                             </View>

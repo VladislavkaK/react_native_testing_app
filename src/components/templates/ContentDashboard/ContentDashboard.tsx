@@ -9,6 +9,7 @@ interface IContentDashboardProps {
     successAnswers: any;
     test_set_id: any;
     currentAnswers: any;
+    updateResultTest: any;
 }
 
 class ContentDashboard extends React.Component<IContentDashboardProps, any> {
@@ -17,7 +18,7 @@ class ContentDashboard extends React.Component<IContentDashboardProps, any> {
     }
 
     render () {
-        const { data, navigation, totalQuestions, successAnswers, test_set_id, currentAnswers } = this.props;
+        const { data, navigation, totalQuestions, successAnswers, test_set_id, currentAnswers, updateResultTest } = this.props;
 
         return (
             <ScrollView>
@@ -25,9 +26,10 @@ class ContentDashboard extends React.Component<IContentDashboardProps, any> {
                     <StatusBar hidden={false} backgroundColor='blueviolet' />
                     <ElementDashboard 
                         data={data} 
+                        updateResultTest={updateResultTest}
                         currentAnswers={currentAnswers}
                         styleBlock={styles.blockDashboard} 
-                        successAnswers={successAnswers.length}
+                        successAnswers={successAnswers}
                         test_set_id={test_set_id}
                         styleElement={styles.elementDashboard}
                         navigation={navigation}

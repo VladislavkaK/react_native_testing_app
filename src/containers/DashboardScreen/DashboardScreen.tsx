@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { ContentDashboard } from '../../components/templates';
-import { getDataTest } from '../../actions/actionGetTests';
+import { getDataTest, updateResultTest } from '../../actions/actionGetTests';
 
 interface IDashboardProps {
     getDataTest: any;
@@ -12,6 +12,8 @@ interface IDashboardProps {
     tests: any;
     navigation: any;
     currentAnswers: any;
+    updateResultTest: any;
+    totalSuccessAnswers: any;
 }
 
 interface IDashboardState {
@@ -48,7 +50,7 @@ class DashboardScreen extends React.Component<IDashboardProps, IDashboardState> 
     }
 
     render() {
-        const { isLoading, isSuccess, tests, total_questions, navigation, currentAnswers } = this.props;
+        const { isLoading, isSuccess, tests, total_questions, navigation, currentAnswers, updateResultTest, totalSuccessAnswers } = this.props;
         // const { state: { params: { successAnswers } } } = this.props.navigation;
         let loadScreen;
 
@@ -61,8 +63,9 @@ class DashboardScreen extends React.Component<IDashboardProps, IDashboardState> 
             loadScreen = 
                 <ContentDashboard 
                     data={tests} 
-                    successAnswers={this.props.navigation.state.params !== undefined ? this.props.navigation.state.params.successAnswers : 0}
-                    currentAnswers={currentAnswers !== undefined ? currentAnswers : {}}
+                    updateResultTest={updateResultTest}
+                    successAnswers={totalSuccessAnswers}
+                    currentAnswers={currentAnswers}
                     test_set_id={this.props.navigation.state.params !== undefined ? this.props.navigation.state.params.test_set_id : 0}
                     navigation={navigation} 
                     totalQuestions={total_questions} />
@@ -79,16 +82,19 @@ class DashboardScreen extends React.Component<IDashboardProps, IDashboardState> 
 const mapStateToProps = (state: any) => {
 
     return {
-        currentAnswers: state.tests.answers,
+        currentAnswers: state.tests.answersData,
+        totalSuccessAnswers: state.tests.successAnswers,
         isSuccess: state.tests.isSuccess,
         isLoading: state.tests.isLoading,
         total_questions: state.tests.total_questions,
         tests: state.tests.tests,
+        lengthData: state.tests.lengthData,
     }
 }
 
 const mapDispatchToProps = {
-    getDataTest
+    getDataTest,
+    updateResultTest
 }
 
 const styles = StyleSheet.create({

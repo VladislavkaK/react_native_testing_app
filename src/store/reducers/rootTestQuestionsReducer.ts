@@ -20,11 +20,22 @@ export default function (state = initialState, action: any) {
             return GET_TEST_QUESTIONS_ERROR(state, action);
         case "ANSWERS_DATA_SUCCESS":
             const { data } = action;
-            
-            return { ...state, data: [
-                ...state.data,
-                data
-            ] }           
+            let totalSuccessAnswers = []; // верных ответов за сет
+
+            for (let key in data.questions) {
+                if (data.questions[key].answer_success) {
+                    totalSuccessAnswers.push({
+                        answer_id: data.questions[key].answer_id,
+                        answer_success: data.questions[key].answer_success
+                    }); 
+                }
+            }
+
+            return { ...state, totalSuccessAnswers }
+            // return { ...state, data: [
+            //     ...state.data,
+            //     successAnswers
+            // ] }           
         default:
             return state;
     }

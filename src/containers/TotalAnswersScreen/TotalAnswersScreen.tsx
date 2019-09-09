@@ -6,6 +6,7 @@ import { getResultTest } from '../../actions/actionGetTests';
 interface ITotalAnswersScreenProps {
     navigation: any;
     getResultTest: any;
+    totalSuccessAnswers: any;
 }
 
 class TotalAnswersScreen extends React.Component<ITotalAnswersScreenProps, any> {
@@ -27,21 +28,21 @@ class TotalAnswersScreen extends React.Component<ITotalAnswersScreenProps, any> 
 
     render () {
         const { state: { params: { successAnswers, totalAnswers, set_id } } } = this.props.navigation;
-        const { getResultTest } = this.props;
+        const { getResultTest, totalSuccessAnswers } = this.props;
 
         return (
             <React.Fragment>
                 <View style={styles.container} >
                     <StatusBar hidden={false} backgroundColor='blueviolet' />
                     <Text style={{fontSize: 20}} >
-                        {`Результат: ${successAnswers.length}/${totalAnswers}`} 
+                        {`Результат: ${totalSuccessAnswers.length}/${totalAnswers}`} 
                     </Text>
                 
                 </View>
                 <TouchableHighlight 
                     style={styles.button} 
                     onPress={() => {
-                        getResultTest({ successAnswers: successAnswers, test_set_id: set_id })
+                        getResultTest({ successAnswers: totalSuccessAnswers, test_set_id: set_id })
                         this.props.navigation.navigate('Dashboard', { successAnswers: successAnswers, test_set_id: set_id })
                     }} 
                 >
@@ -72,10 +73,16 @@ const styles = StyleSheet.create({
     },
 })
 
+const mapStateToProps = (state: any) => {
+    return {
+        totalSuccessAnswers: state.testQuestions.totalSuccessAnswers,
+    }
+}
+
 const mapDispatchToProps = (dispatch: any) => {
     return {
         getResultTest: (data: any) => dispatch(getResultTest(data))  
     }
 }
 
-export default connect(null, mapDispatchToProps)(TotalAnswersScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(TotalAnswersScreen);
